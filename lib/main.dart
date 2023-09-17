@@ -1,60 +1,34 @@
-import 'package:absensitanggamus/pages/home_page.dart';
-import 'package:absensitanggamus/pages/login_page.dart';
+import 'package:absensitanggamus/routes/routes.dart';
 import 'package:absensitanggamus/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'pages/splash_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
-  runApp(const App());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID');
+  runApp(
+    const ProviderScope(child: App()),
+  );
 }
 
 // Route configuration
-final GoRouter _router = GoRouter(
-  routes: [
-    GoRoute(path: '/', builder: (context, state) => const LoginPage()),
-    GoRoute(
-      path: '/home',
-      builder: (context, state) => const HomePage(),
-    ),
-  ],
-);
+final GoRouter _router =
+    GoRouter(routes: $appRoutes, initialLocation: LoginRoute.path);
 
-class App extends StatelessWidget {
+class App extends HookConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.delayed(const Duration(seconds: 2)),
-      builder: (context, snapshot) {
-        return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            routerConfig: _router,
-            theme: ThemeData(
-              useMaterial3: true,
-              scaffoldBackgroundColor: AppColors.bgColor,
-            ));
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              useMaterial3: true,
-              scaffoldBackgroundColor: AppColors.bgColor,
-            ),
-            home: SplashScreen(),
-          );
-        } else {
-          return MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              routerConfig: _router,
-              theme: ThemeData(
-                useMaterial3: true,
-                scaffoldBackgroundColor: AppColors.bgColor,
-              ));
-        }
-      },
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router,
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: AppColors.bgColor,
+      ),
     );
   }
 }

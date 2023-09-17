@@ -9,25 +9,28 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: const Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: const Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Image(
+                image: AssetImage('assets/logo/logo.png'),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15),
                 child: Image(
-                  image: AssetImage('assets/logo/logo.png'),
+                  image: AssetImage('assets/logo/bottomLogo.png'),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                    child:
-                        Image(image: AssetImage('assets/logo/bottomLogo.png'))),
-              )
-            ],
-          )),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
