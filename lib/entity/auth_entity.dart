@@ -5,14 +5,10 @@ part 'auth_entity.freezed.dart';
 @freezed
 class Auth with _$Auth {
   const factory Auth.signIn({
-    required String nip,
-    required String password,
     required String token,
   }) = AuthSignIn;
 
-  const factory Auth.signUp() = AuthSignUp;
-
   const factory Auth.signOut() = AuthSignOut;
 
-  const factory Auth.error() = AuthError;
+  const factory Auth.error(String maessage) = AuthError;
 }

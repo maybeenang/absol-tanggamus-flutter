@@ -2,27 +2,30 @@ import 'package:absensitanggamus/pages/beranda_page.dart';
 import 'package:absensitanggamus/pages/history_page.dart';
 import 'package:absensitanggamus/pages/izin_page.dart';
 import 'package:absensitanggamus/pages/lokasi_page.dart';
+import 'package:absensitanggamus/providers/location_provider.dart';
+import 'package:absensitanggamus/providers/user_controller.dart';
 import 'package:absensitanggamus/styles/appstyle.dart';
 import 'package:absensitanggamus/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends HookWidget {
+class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var currIndex = useState(0);
-
+    ref.watch(userControllerProvider);
+    ref.watch(locationControllerProvider);
     return Scaffold(
       body: <Widget>[
         const BerandaPage(),
-        LokasiPage(),
+        const LokasiPage(),
         const IzinPage(),
         const HistoryPage(),
       ][currIndex.value],
       bottomNavigationBar: Container(
-        // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         padding: const EdgeInsets.symmetric(
           vertical: 5,
           horizontal: 20,

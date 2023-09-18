@@ -1,24 +1,12 @@
-import 'package:absensitanggamus/entity/history_absen_entity.dart';
 import 'package:absensitanggamus/styles/appstyle.dart';
 import 'package:absensitanggamus/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 
-class AbsenClock extends ConsumerWidget {
-  const AbsenClock({super.key, required this.data});
-
-  final HistoryAbsen data;
+class LoadingAbsenClock extends StatelessWidget {
+  const LoadingAbsenClock({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final formatJamMasuk = DateFormat('HH:mm:ss', "id_ID").format(
-      data.absen.jamMasuk.toLocal(),
-    );
-    final formatJamKeluar = DateFormat('HH:mm:ss', "id_ID").format(
-      data.absen.jamKeluar.toLocal(),
-    );
-
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -26,12 +14,12 @@ class AbsenClock extends ConsumerWidget {
         color: AppColors.whiteColor,
         boxShadow: [Appstyle.boxShadowStyle],
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
             children: [
-              const Text(
+              Text(
                 'Absen Masuk',
                 style: TextStyle(
                   color: AppColors.blackColor,
@@ -39,8 +27,8 @@ class AbsenClock extends ConsumerWidget {
                 ),
               ),
               Text(
-                formatJamMasuk.toString(),
-                style: const TextStyle(
+                '--:--:--',
+                style: TextStyle(
                   color: AppColors.blackColor,
                   fontSize: 20,
                 ),
@@ -49,7 +37,7 @@ class AbsenClock extends ConsumerWidget {
           ),
           Column(
             children: [
-              const Text(
+              Text(
                 'Absen Keluar',
                 style: TextStyle(
                   color: AppColors.blackColor,
@@ -57,8 +45,8 @@ class AbsenClock extends ConsumerWidget {
                 ),
               ),
               Text(
-                formatJamKeluar.toString(),
-                style: const TextStyle(
+                '--:--:--',
+                style: TextStyle(
                   color: AppColors.blackColor,
                   fontSize: 20,
                 ),

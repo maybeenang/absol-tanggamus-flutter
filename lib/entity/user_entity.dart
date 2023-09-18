@@ -7,10 +7,9 @@ part 'user_entity.g.dart';
 class UserEntity with _$UserEntity {
   const factory UserEntity({
     required String id,
-    required String name,
+    required String nama,
     required String nip,
     required String email,
-    required String token,
   }) = _UserEntity;
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>

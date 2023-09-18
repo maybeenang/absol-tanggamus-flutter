@@ -10,6 +10,8 @@ class IzinPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final keteranganController = useTextEditingController();
+
     final _kategoriIzin = useState('Pilih Kategori Izin');
     var items = [
       'Pilih Kategori Izin',
@@ -94,6 +96,7 @@ class IzinPage extends HookWidget {
                     ),
                     child: TextFormField(
                       maxLines: 5,
+                      controller: keteranganController,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Tulis Keterangan',
@@ -116,7 +119,33 @@ class IzinPage extends HookWidget {
                   Container(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Loading'),
+                          ),
+                        );
+
+                        Future.delayed(const Duration(seconds: 2), () {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          if (keteranganController.text == '') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Gagal mengirim pengajuan, keterangan tidak boleh kosong!'),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Berhasil mengirim pengajuan'),
+                              ),
+                            );
+                          }
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryColor,
                         shape: RoundedRectangleBorder(
